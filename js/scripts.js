@@ -118,7 +118,7 @@ class Calculator {
     }
     //mostrar o resultado total
     processEqualsOperation() {
-        const operation = this.currentOperationText.innerText.split(" ")[1];
+        const operation = this.previousOperationText.innerText.split(" ")[1];
         
         this.processOperation(operation);
         
@@ -139,4 +139,22 @@ buttons.forEach ((btn) => {
             calc.processOperation(value);
         }
     });
+});
+
+window.addEventListener("keydown", (e) => {
+    const value = e.key;
+
+    if(+value >= 0 || value === ".") {
+        calc.addDigit(value);
+    } else {
+        calc.processOperation(value);
+    }
+
+    if(value == "Enter") {
+        calc.processOperation("=");
+    }
+
+    if(value == "Backspace") {
+        calc.processOperation("DEL");
+    }
 });
